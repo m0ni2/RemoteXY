@@ -165,8 +165,8 @@ class CRemoteXYComm_ESP8266Point : public CRemoteXYComm_ESP8266_Proto {
   void initModule () {
     state = Init;
     if (sendATCommandForResult ("ATE0",NULL) != AT_RESULT_OK) return;   
-    if (sendATCommandForResult ("AT+CWMODE=2",NULL) != AT_RESULT_OK) return;    
-    if (sendATCommandForResult ("AT+CWDHCP=0,1",NULL) != AT_RESULT_OK) return;
+    if (sendATCommandForResult ("AT+CWMODE=3",NULL) != AT_RESULT_OK) return;    
+    if (sendATCommandForResult ("AT+CWDHCP=1,1",NULL) != AT_RESULT_OK) return;
     
     char crypt[2] = {*wifiPassword?'4':'0',0};
     setATTimeOut (5000);
