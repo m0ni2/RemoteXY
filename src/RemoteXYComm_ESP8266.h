@@ -165,8 +165,8 @@ class CRemoteXYComm_ESP8266Point : public CRemoteXYComm_ESP8266_Proto {
   void initModule () {
     state = Init;
     if (sendATCommandForResult ("ATE0",NULL) != AT_RESULT_OK) return;   
-    if (sendATCommandForResult ("AT+CWMODE=3",NULL) != AT_RESULT_OK) return;    
-    if (sendATCommandForResult ("AT+CWDHCP=1,1",NULL) != AT_RESULT_OK) return;
+    if (sendATCommandForResult ("AT+CWMODE=3",NULL) != AT_RESULT_OK) return; //changed to CWMODE 3 to use remoteXY local and send data to server.   
+    if (sendATCommandForResult ("AT+CWDHCP=1,1",NULL) != AT_RESULT_OK) return; // changed CWDHCP 1,1 to use remoteXY local and send data to server
     
     char crypt[2] = {*wifiPassword?'4':'0',0};
     setATTimeOut (5000);
@@ -174,7 +174,6 @@ class CRemoteXYComm_ESP8266Point : public CRemoteXYComm_ESP8266_Proto {
     if (sendATCommandForResult ("AT+CIPMODE=0",NULL) != AT_RESULT_OK) return;
     if (sendATCommandForResult ("AT+CIPMUX=1",NULL) != AT_RESULT_OK) return;
     state = Configured; 
-    if (sendATCommandForResult ("AT+CIPSTATE?",NULL) != AT_RESULT_OK) return;
   }
   
   virtual void handler () override {
